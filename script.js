@@ -1,10 +1,19 @@
-const DomElement = function (selector = null, height = null, width) {
-  this.selector = null;
-  this.height = null;
-  this.width = null;
-  this.bg = null;
-  this.fontSize = null;
+const DomElement = function (
+  selector = null,
+  height = null,
+  width = null,
+  bg = null,
+  fontSize = null
+) {
+  this.selector = selector;
+  this.height = height;
+  this.width = width;
+  this.bg = bg;
+  this.fontSize = fontSize;
 };
-DomElement.prototype.createElement = function () {};
+DomElement.prototype.createElement = function () {
+  console.log(this);
+};
 
-const domEl = new DomElement();
+const domEl = new DomElement(".test");
+domEl.createElement();
