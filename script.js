@@ -1,38 +1,49 @@
-const DomElement = function (
-  selector = null,
-  height = null,
-  width = null,
-  bg = null,
-  fontSize = null
-) {
-  this.selector = selector;
-  this.height = height;
-  this.width = width;
-  this.bg = bg;
-  this.fontSize = fontSize;
-};
-DomElement.prototype.createElement = function () {
-  let text = "";
-  let item = null;
-  if (this.selector.slice(0, 1) === ".") {
-    item = document.createElement("div");
-    item.classList.add(this.selector);
-    text = "div test";
-  } else if (this.selector.slice(0, 1) === "#") {
-    item = document.createElement("p");
-    item.setAttribute("id", this.selector.slice(1, this.selector.length));
-    text = "p element";
+document.addEventListener("DOMContentLoaded", function () {
+  class DomElement {
+    constructor(height = 100, width = 100, bg = "red", fontSize = null) {
+      this.height = height;
+      this.width = width;
+      this.bg = bg;
+      this.fontSize = fontSize;
+      this.figure = document.createElement("div");
+      this.figure.classList.add("test");
+      this.figure.classList.add(this.selector);
+      this.figure.style.position = "absolute";
+      this.figure.style.height = `${this.height}px`;
+      this.figure.style.width = `${this.width}px`;
+      this.figure.style.background = this.bg;
+      this.figure.style.top = "100px";
+      this.figure.style.left = "100px";
+      document.body.append(this.figure);
+    }
+    goUp() {
+      this.figure.style.top = `${parseInt(this.figure.style.top) - 10}px`;
+    }
+    goDown() {
+      this.figure.style.top = `${parseInt(this.figure.style.top) + 10}px`;
+    }
+    goLeft() {
+      this.figure.style.left = `${parseInt(this.figure.style.left) - 10}px`;
+    }
+    goRight() {
+      this.figure.style.left = `${parseInt(this.figure.style.left) + 10}px`;
+    }
   }
-  item.style.cssText = `height: ${this.height}px; width: ${this.width}px; background: ${this.bg}; font-size: ${this.fontSize}px;`;
-  item.textContent = text;
-  document.body.append(item);
-};
-
-const domEl = new DomElement(
-  (selector = "#test"),
-  (height = 50),
-  (width = 300),
-  (bg = "red"),
-  (fontSize = "18")
-);
-domEl.createElement();
+  const square = new DomElement();
+  document.addEventListener("keyup", (event) => {
+    switch (event.code) {
+      case "ArrowUp":
+        square.goUp();
+        break;
+      case "ArrowDown":
+        square.goDown();
+        break;
+      case "ArrowLeft":
+        square.goLeft();
+        break;
+      case "ArrowRight":
+        square.goRight();
+        break;
+    }
+  });
+});
